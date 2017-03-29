@@ -7,7 +7,7 @@ Game::Game() : window(sf::VideoMode(800, 600),
 
 }
 
-void Game::start()
+void Game::run()
 {
 	while (window.isOpen())
 	{
