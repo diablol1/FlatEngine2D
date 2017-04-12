@@ -1,7 +1,7 @@
-
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include "GameState.hpp"
 
 class PlayState final : public GameState {

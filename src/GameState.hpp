@@ -1,7 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <memory>
 #include <unordered_map>
