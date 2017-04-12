@@ -1,18 +1,23 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
-class Game
-{
+#include "GameState.hpp"
+
+class Game {
 public:
-	Game();
-	
-	void run();
+    Game();
+
+    void run();
 
 private:
-	sf::RenderWindow window;
+    sf::RenderWindow window;
 
-	void processEvents();
-	void draw();
+	std::shared_ptr<GameState> currentState;
+	GameStatesMap states;
+
+    void processEvents();
+	void update(float deltaTime);
+    void draw();
 };
-
