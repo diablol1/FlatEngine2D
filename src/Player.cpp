@@ -1,8 +1,5 @@
 #include "Player.hpp"
 
-Player::Player(float moveSpeed) : moveSpeed(moveSpeed) {
-
-}
 
 void Player::processEvent(const sf::Event &event) {
 	if(event.type == sf::Event::KeyPressed)
@@ -35,5 +32,9 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Player::setTexture(const sf::Texture &texture) {
 	sprite.setTexture(texture);
+}
+
+void Player::setMoveSpeed(int speed) {
+	moveSpeed = speed;
 }
 
