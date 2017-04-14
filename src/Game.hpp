@@ -7,10 +7,11 @@
 
 class Game {
 public:
+	static const sf::Vector2i windowSize;
+
     Game();
 
     void run();
-
 private:
     sf::RenderWindow window;
 

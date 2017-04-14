@@ -1,8 +1,10 @@
 #include "Game.hpp"
 #include "PlayState.hpp"
 
+const sf::Vector2i Game::windowSize = sf::Vector2i(800, 600);
+
 Game::Game()
-    : window(sf::VideoMode(800, 600), "Platformer2D",
+    : window(sf::VideoMode(windowSize.x, windowSize.y), "Platformer2D",
              sf::Style::Close | sf::Style::Titlebar) {
 
 		states[gs::GameStates::PLAY] = std::make_shared<PlayState>();
