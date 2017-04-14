@@ -7,7 +7,7 @@
 
 class Game {
 public:
-	static const sf::Vector2i windowSize;
+	static const sf::Vector2i WINDOW_SIZE;
 
     Game();
 
