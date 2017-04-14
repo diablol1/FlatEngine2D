@@ -9,5 +9,5 @@ void PlayState::update(float deltaTime) {
 }
 
 void PlayState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-
+	target.draw(level);
 }
