@@ -15,7 +15,7 @@ Game::Game()
 void Game::run() {
     while (window.isOpen()) {
         processEvents();
-	    update(0); //I haven't implemented calculating delta time yet
+	    update(1); //I haven't implemented calculating delta time yet. Zero is for testing
         draw();
     }
 }

@@ -1,6 +1,14 @@
 {
-    "background":
- 	{
-    	"path": "data/levels/level1/background.png"
+  "background":
+  {
+    "path": "data/levels/level1/background.png"
+  },
+  "player":
+  {
+    "position":
+    {
+      "x": 50,
+      "y": 300
     }
+  }
 }
