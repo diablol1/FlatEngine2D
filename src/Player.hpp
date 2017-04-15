@@ -10,13 +10,12 @@ public:
 	void setTexture(const sf::Texture &texture);
 
 	void setMoveSpeed(int speed);
-protected:
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
 private:
 	sf::Sprite sprite;
 
 	float moveSpeed;
 	bool hasMovedFlag;
+
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 
