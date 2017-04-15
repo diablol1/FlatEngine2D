@@ -1,9 +1,12 @@
 #pragma once
 
+#include <fstream>
 #include <string>
+#include <unordered_map>
 
 #include "json.hpp"
 #include "Player.hpp"
+#include "Game.hpp"
 
 using json = nlohmann::json;
 
@@ -15,14 +18,12 @@ public:
 	void processEvent(const sf::Event& event);
 	void update(float deltaTime);
 private:
-	sf::Texture backgroundTexture;
 	sf::Sprite background;
-
-	sf::Texture playerTexture;
 	Player player;
 
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+	std::unordered_map<std::string, sf::Texture> textures;
 
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	void scaleBackgroundToWindow();
 };
 

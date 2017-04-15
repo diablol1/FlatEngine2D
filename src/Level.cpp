@@ -1,12 +1,9 @@
-#include <fstream>
 #include "Level.hpp"
-#include "Game.hpp"
-
 
 Level::Level() {
-	//TODO: Reading from file would be better
-	playerTexture.loadFromFile("data/sprites/player.png");
-	player.setTexture(playerTexture);
+	//Reading it from file might be better
+	textures["player"].loadFromFile("data/sprites/player.png");
+	player.setTexture(textures["player"]);
 	player.setMoveSpeed(5);
 }
 
@@ -14,8 +11,8 @@ void Level::loadFromFile(const std::string &fileName) {
 	std::ifstream fileWithLevelData(fileName);
 	json js(fileWithLevelData);
 
-	backgroundTexture.loadFromFile(js["background"]["path"]);
-	background.setTexture(backgroundTexture);
+	textures["background"].loadFromFile(js["background"]["path"]);
+	background.setTexture(textures["background"]);
 	scaleBackgroundToWindow();
 
 	player.setPosition(js["player"]["position"]["x"],
@@ -28,8 +25,8 @@ void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void Level::scaleBackgroundToWindow() {
-	background.setScale(static_cast<float>(Game::WINDOW_SIZE.x) / backgroundTexture.getSize().x,
-	                    static_cast<float>(Game::WINDOW_SIZE.y) / backgroundTexture.getSize().y);
+	background.setScale(static_cast<float>(Game::WINDOW_SIZE.x) / textures["background"].getSize().x,
+	                    static_cast<float>(Game::WINDOW_SIZE.y) / textures["background"].getSize().y);
 }
 
 void Level::processEvent(const sf::Event &event) {
