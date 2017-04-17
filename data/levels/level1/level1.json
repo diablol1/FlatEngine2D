@@ -1,14 +1,57 @@
 {
-  "background":
-  {
-    "path": "data/levels/level1/background.png"
+  "background": {
+    "texturePath": "data/levels/level1/background.png"
   },
-  "player":
-  {
-    "position":
-    {
+  "player": {
+    "position": {
       "x": 50,
       "y": 300
+    }
+  },
+  "tileSize": {
+    "x": 70,
+    "y": 70
+  },
+  "tiles": {
+    "box": {
+      "data": {
+        "name": "box",
+        "texturePath": "data/sprites/box.png"
+      },
+      "objects": {
+        "0": {
+          "positionInTiles": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        "1": {
+          "positionInTiles": {
+            "x": 1,
+            "y": 3
+          }
+        }
+      }
+    },
+    "castle": {
+      "data": {
+        "name": "castle",
+        "texturePath": "data/sprites/castle.png"
+      },
+      "objects": {
+        "0": {
+          "positionInTiles": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        "1": {
+          "positionInTiles": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      }
     }
   }
 }

@@ -19,11 +19,16 @@ public:
 	void update(float deltaTime);
 private:
 	sf::Sprite background;
+	std::vector<sf::Sprite> tiles;
 	Player player;
 
 	std::unordered_map<std::string, sf::Texture> textures;
 
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+	sf::Vector2i tileSize;
+
 	void scaleBackgroundToWindow();
+	void loadTiles(const json& js);
+
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 
