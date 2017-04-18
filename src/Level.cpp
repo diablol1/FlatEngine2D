@@ -2,7 +2,6 @@
 
 Level::Level() {
 	//Reading it from file might be better
-	loadFromFile("data/levels/level1/level1.json");
 	textures["player"].loadFromFile("data/sprites/player.png");
 	player.setTexture(textures["player"]);
 	player.setMoveSpeed(5);
@@ -19,6 +18,7 @@ void Level::loadFromFile(const std::string &fileName) {
 
 	player.setPosition(js["player"]["position"]["x"],
 	                   js["player"]["position"]["y"]);
+	player.centerView();
 
 	loadTiles(js);
 }
