@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.hpp"
+#include "InfiniteBackground.hpp"
 
 class Player : public sf::Drawable, public sf::Transformable {
 public:
@@ -13,8 +14,12 @@ public:
 	void processEvent(const sf::Event& event);
 	void update(float deltaTime);
 
-	void setTexture(const sf::Texture &texture);
+	void setTexture(const sf::Texture& texture);
 	void setMoveSpeed(int speed);
+	const sf::Texture* getTexture();
+
+	bool isViewStuckOutOfBackground(const InfiniteBackground& background);
+
 private:
 	sf::Sprite sprite;
 

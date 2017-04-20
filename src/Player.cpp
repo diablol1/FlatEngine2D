@@ -34,6 +34,19 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(sprite, states);
 }
 
+void Player::centerView() {
+	sf::Vector2f textureSize = sf::Vector2f(sprite.getTexture()->getSize());
+	view.setCenter(getPosition() + sf::Vector2f(textureSize.x / 2, textureSize.y / 2));
+}
+
+bool Player::isViewStuckOutOfBackground(const InfiniteBackground& background) {
+	return (view.getSize().x / 2 >
+	    background.getPosition().x +
+	    background.getTexture()->getSize().x * 2 -
+	    getPosition().x -
+	    getTexture()->getSize().x / 2);
+}
+
 void Player::setTexture(const sf::Texture &texture) {
 	sprite.setTexture(texture);
 }
@@ -42,8 +55,7 @@ void Player::setMoveSpeed(int speed) {
 	moveSpeed = speed;
 }
 
-void Player::centerView() {
-	sf::Vector2f textureSize = sf::Vector2f(sprite.getTexture()->getSize());
-	view.setCenter(getPosition() + sf::Vector2f(textureSize.x / 2, textureSize.y / 2));
+const sf::Texture* Player::getTexture() {
+	return sprite.getTexture();
 }
 

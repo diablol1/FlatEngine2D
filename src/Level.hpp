@@ -7,6 +7,7 @@
 #include "json.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
+#include "InfiniteBackground.hpp"
 
 using json = nlohmann::json;
 
@@ -18,7 +19,7 @@ public:
 	void processEvent(const sf::Event& event);
 	void update(float deltaTime);
 private:
-	sf::Sprite background;
+	InfiniteBackground background;
 	std::vector<sf::Sprite> tiles;
 	Player player;
 
@@ -26,7 +27,6 @@ private:
 
 	sf::Vector2i tileSize;
 
-	void scaleBackgroundToWindow();
 	void loadTiles(const json& js);
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

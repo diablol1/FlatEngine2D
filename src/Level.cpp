@@ -5,6 +5,8 @@ Level::Level() {
 	textures["player"].loadFromFile("data/sprites/player.png");
 	player.setTexture(textures["player"]);
 	player.setMoveSpeed(5);
+
+	loadFromFile("data/levels/level1/level1.json");
 }
 
 void Level::loadFromFile(const std::string &fileName) {
@@ -14,34 +16,15 @@ void Level::loadFromFile(const std::string &fileName) {
 
 	textures["background"].loadFromFile(js["background"]["texturePath"]);
 	background.setTexture(textures["background"]);
-	scaleBackgroundToWindow();
 
 	player.setPosition(js["player"]["position"]["x"],
 	                   js["player"]["position"]["y"]);
 	player.centerView();
 
+	background.setPosition(player.getPosition() - sf::Vector2f(background.getTexture()->getSize().x / 2,
+	                                                           background.getTexture()->getSize().y / 2));
+
 	loadTiles(js);
-}
-
-void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	target.draw(background);
-	target.draw(player);
-	for(auto const& tile : tiles) {
-		target.draw(tile, states);
-	}
-}
-
-void Level::scaleBackgroundToWindow() {
-	background.setScale(static_cast<float>(Game::WINDOW_SIZE.x) / textures["background"].getSize().x,
-	                    static_cast<float>(Game::WINDOW_SIZE.y) / textures["background"].getSize().y);
-}
-
-void Level::processEvent(const sf::Event &event) {
-	player.processEvent(event);
-}
-
-void Level::update(float deltaTime) {
-	player.update(deltaTime);
 }
 
 void Level::loadTiles(const json &js) {
@@ -62,5 +45,24 @@ void Level::loadTiles(const json &js) {
 			                    static_cast<int>(tile["positionInTiles"]["y"]) * tileSize.y);
 			tiles.push_back(tmpTile);
 		}
+	}
+}
+
+void Level::processEvent(const sf::Event &event) {
+	player.processEvent(event);
+}
+
+void Level::update(float deltaTime) {
+	player.update(deltaTime);
+
+	if(player.isViewStuckOutOfBackground(background))
+		background.moveBackToFront();
+}
+
+void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+	target.draw(background);
+	target.draw(player);
+	for(auto const& tile : tiles) {
+		target.draw(tile, states);
 	}
 }
