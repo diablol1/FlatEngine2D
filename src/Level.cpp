@@ -4,7 +4,7 @@ Level::Level() {
 	//Reading it from file might be better
 	textures["player"].loadFromFile("data/sprites/player.png");
 	player.setTexture(textures["player"]);
-	player.setMoveSpeed(5);
+	player.setMoveSpeed(600);
 
 	loadFromFile("data/levels/level1/level1.json");
 }

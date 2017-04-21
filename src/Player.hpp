@@ -25,6 +25,7 @@ private:
 
 	sf::View view;
 
+	sf::Vector2f nextMove;
 	float moveSpeed;
 	bool hasMovedFlag;
 

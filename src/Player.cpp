@@ -10,11 +10,11 @@ void Player::processEvent(const sf::Event &event) {
 		switch(event.key.code)
 		{
 			case sf::Keyboard::A:
-				move(-moveSpeed, 0);
+				nextMove += sf::Vector2f(-moveSpeed, 0);
 				hasMovedFlag = true;
 				break;
 			case sf::Keyboard::D:
-				move(moveSpeed, 0);
+				nextMove += sf::Vector2f(moveSpeed, 0);
 				hasMovedFlag = true;
 				break;
 		}
@@ -22,8 +22,12 @@ void Player::processEvent(const sf::Event &event) {
 }
 void Player::update(float deltaTime) {
 	if(hasMovedFlag) {
-		setPosition(getPosition() * deltaTime);
+		nextMove *= deltaTime;
+		move(nextMove);
+		nextMove = sf::Vector2f();
+
 		centerView();
+
 		hasMovedFlag = false;
 	}
 }

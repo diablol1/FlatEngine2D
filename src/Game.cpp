@@ -13,10 +13,17 @@ Game::Game()
 	}
 
 void Game::run() {
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen()) {
         processEvents();
-	    update(1); //I haven't implemented calculating delta time yet. Zero is for testing
-        draw();
+	    timeSinceLastUpdate += clock.restart();
+	    while(timeSinceLastUpdate > TIME_PER_FRAME) {
+		    timeSinceLastUpdate -= TIME_PER_FRAME;
+		    processEvents();
+		    update(TIME_PER_FRAME.asSeconds());
+	    }
+	    draw();
     }
 }
 
