@@ -7,9 +7,9 @@ Game::Game()
     : window(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Platformer2D",
              sf::Style::Close | sf::Style::Titlebar) {
 
-		states[gs::GameStates::PLAY] = std::make_shared<PlayState>();
+		states[GameStates::PLAY] = std::make_shared<PlayState>();
 
-		currentState = states[gs::GameStates::PLAY];
+		currentState = states[GameStates::PLAY];
 	}
 
 void Game::run() {

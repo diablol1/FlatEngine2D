@@ -8,7 +8,7 @@
 #include "Enums.hpp"
 #include "EnumClassHash.hpp"
 
-using GameStatesMap = std::unordered_map<gs::GameStates, std::shared_ptr<class GameState>, EnumClassHash>;
+using GameStatesMap = std::unordered_map<GameStates, std::shared_ptr<class GameState>, EnumClassHash>;
 
 class GameState : public sf::Drawable {
 public:
