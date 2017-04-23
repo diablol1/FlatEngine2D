@@ -27,7 +27,7 @@ private:
 
 	sf::Vector2f nextMove;
 	float moveSpeed;
-	bool hasMovedFlag;
+	int gravity = 400;
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

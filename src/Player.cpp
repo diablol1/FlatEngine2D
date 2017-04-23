@@ -11,25 +11,21 @@ void Player::processEvent(const sf::Event &event) {
 		{
 			case sf::Keyboard::A:
 				nextMove += sf::Vector2f(-moveSpeed, 0);
-				hasMovedFlag = true;
 				break;
 			case sf::Keyboard::D:
 				nextMove += sf::Vector2f(moveSpeed, 0);
-				hasMovedFlag = true;
 				break;
 		}
 	}
 }
 void Player::update(float deltaTime) {
-	if(hasMovedFlag) {
-		nextMove *= deltaTime;
-		move(nextMove);
-		nextMove = sf::Vector2f();
+	nextMove.y += gravity;
 
-		centerView();
+	nextMove *= deltaTime;
+	move(nextMove);
+	nextMove = sf::Vector2f();
 
-		hasMovedFlag = false;
-	}
+	centerView();
 }
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
