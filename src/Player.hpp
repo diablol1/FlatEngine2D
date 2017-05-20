@@ -27,7 +27,9 @@ private:
 
 	sf::Vector2f nextMove;
 	float moveSpeed;
-	int gravity = 400;
+	int gravity = 1;
+
+	MovingDirections movingDirection;
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

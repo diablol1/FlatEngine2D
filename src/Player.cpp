@@ -5,20 +5,23 @@ Player::Player() {
 }
 
 void Player::processEvent(const sf::Event &event) {
-	if(event.type == sf::Event::KeyPressed)
-	{
-		switch(event.key.code)
-		{
-			case sf::Keyboard::A:
-				nextMove += sf::Vector2f(-moveSpeed, 0);
-				break;
-			case sf::Keyboard::D:
-				nextMove += sf::Vector2f(moveSpeed, 0);
-				break;
-		}
+	if(event.type == sf::Event::KeyReleased) {
+		movingDirection = MovingDirections::NONE;
+	}
+
+	if(movingDirection == MovingDirections::NONE) {
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			movingDirection = MovingDirections::LEFT;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			movingDirection = MovingDirections::RIGHT;
 	}
 }
 void Player::update(float deltaTime) {
+	if(movingDirection == MovingDirections::LEFT)
+		nextMove.x -= moveSpeed;
+	else if(movingDirection == MovingDirections::RIGHT)
+		nextMove.x += moveSpeed;
+
 	nextMove.y += gravity;
 
 	nextMove *= deltaTime;
