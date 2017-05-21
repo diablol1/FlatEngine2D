@@ -9,12 +9,10 @@ void Player::processEvent(const sf::Event &event) {
 		movingDirection = MovingDirections::NONE;
 	}
 
-	if(movingDirection == MovingDirections::NONE) {
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			movingDirection = MovingDirections::LEFT;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			movingDirection = MovingDirections::RIGHT;
-	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		movingDirection = MovingDirections::LEFT;
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		movingDirection = MovingDirections::RIGHT;
 }
 void Player::update(float deltaTime) {
 	if(movingDirection == MovingDirections::LEFT)
