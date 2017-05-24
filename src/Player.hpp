@@ -17,9 +17,7 @@ public:
 	void setTexture(const sf::Texture& texture);
 	void setMoveSpeed(int speed);
 	const sf::Texture* getTexture();
-
-	bool isViewStuckOutOfBackground(const InfiniteBackground& background);
-
+	sf::FloatRect getViewGlobalBounds() const;
 private:
 	sf::Sprite sprite;
 
@@ -27,7 +25,7 @@ private:
 
 	sf::Vector2f nextMove;
 	float moveSpeed;
-	int gravity = 1;
+	int gravity = 5;
 
 	MovingDirections movingDirection;
 

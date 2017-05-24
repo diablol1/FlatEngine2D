@@ -4,15 +4,18 @@
 
 class InfiniteBackground : public sf::Drawable {
 public:
+	InfiniteBackground(int numberOfParts);
+
 	void moveBackToFront();
+	void moveFrontToBack();
 
 	void setPosition(const sf::Vector2f& position);
 	void setTexture(const sf::Texture& texture);
 
+	const std::vector<sf::Sprite>& getParts();
 	const sf::Texture* getTexture() const;
-	sf::Vector2f getPosition() const;
 private:
-	std::array<sf::Sprite, 2> backgrounds;
+	std::vector<sf::Sprite> parts;
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

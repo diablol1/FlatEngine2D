@@ -14,6 +14,7 @@ void Player::processEvent(const sf::Event &event) {
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		movingDirection = MovingDirections::RIGHT;
 }
+
 void Player::update(float deltaTime) {
 	if(movingDirection == MovingDirections::LEFT)
 		nextMove.x -= moveSpeed;
@@ -40,13 +41,6 @@ void Player::centerView() {
 	view.setCenter(getPosition() + sf::Vector2f(textureSize.x / 2, textureSize.y / 2));
 }
 
-bool Player::isViewStuckOutOfBackground(const InfiniteBackground& background) {
-	return (view.getSize().x / 2 >
-	    background.getPosition().x +
-	    background.getTexture()->getSize().x * 2 -
-	    getPosition().x -
-	    getTexture()->getSize().x / 2);
-}
 
 void Player::setTexture(const sf::Texture &texture) {
 	sprite.setTexture(texture);
@@ -60,3 +54,9 @@ const sf::Texture* Player::getTexture() {
 	return sprite.getTexture();
 }
 
+sf::FloatRect Player::getViewGlobalBounds() const {
+	return sf::FloatRect(sf::Vector2f
+			                     (view.getCenter().x - view.getSize().x / 2,
+			                      view.getCenter().y - view.getSize().y / 2),
+	                     view.getSize());
+}

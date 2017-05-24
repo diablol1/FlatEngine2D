@@ -1,6 +1,6 @@
 #include "Level.hpp"
 
-Level::Level() {
+Level::Level() : background(2) {
 	//Reading it from file might be better
 	textures["player"].loadFromFile("data/sprites/player.png");
 	player.setTexture(textures["player"]);
@@ -54,8 +54,9 @@ void Level::processEvent(const sf::Event &event) {
 
 void Level::update(float deltaTime) {
 	player.update(deltaTime);
-
-	if(player.isViewStuckOutOfBackground(background))
+	if(player.getViewGlobalBounds().left < background.getParts()[0].getGlobalBounds().left)
+		background.moveFrontToBack();
+	if(player.getViewGlobalBounds().left > background.getParts()[1].getGlobalBounds().left)
 		background.moveBackToFront();
 }
 
