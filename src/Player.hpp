@@ -27,7 +27,7 @@ private:
 	float moveSpeed;
 	int gravity = 5;
 
-	MovingDirections movingDirection;
+	WalkingDirections walkingDirection;
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

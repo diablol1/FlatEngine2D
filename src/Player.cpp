@@ -6,19 +6,19 @@ Player::Player() {
 
 void Player::processEvent(const sf::Event &event) {
 	if(event.type == sf::Event::KeyReleased) {
-		movingDirection = MovingDirections::NONE;
+		walkingDirection = WalkingDirections::NONE;
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		movingDirection = MovingDirections::LEFT;
+		walkingDirection = WalkingDirections::LEFT;
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		movingDirection = MovingDirections::RIGHT;
+		walkingDirection = WalkingDirections::RIGHT;
 }
 
 void Player::update(float deltaTime) {
-	if(movingDirection == MovingDirections::LEFT)
+	if(walkingDirection == WalkingDirections::LEFT)
 		nextMove.x -= moveSpeed;
-	else if(movingDirection == MovingDirections::RIGHT)
+	else if(walkingDirection == WalkingDirections::RIGHT)
 		nextMove.x += moveSpeed;
 
 	nextMove.y += gravity;

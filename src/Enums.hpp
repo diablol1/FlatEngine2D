@@ -4,7 +4,7 @@ enum class GameStates {
 	PLAY
 };
 
-enum class MovingDirections {
+enum class WalkingDirections {
 	NONE,
 	LEFT,
 	RIGHT

@@ -21,7 +21,6 @@ void InfiniteBackground::draw(sf::RenderTarget &target, sf::RenderStates states)
 	for(const auto& part : parts) {
 		target.draw(part);
 	}
-	std::cout << static_cast<int>(getTexture()->getSize().x) * 2 << std::endl;
 }
 
 void InfiniteBackground::setPosition(const sf::Vector2f &position) {
