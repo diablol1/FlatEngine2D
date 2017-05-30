@@ -4,8 +4,8 @@
   },
   "player": {
     "position": {
-      "x": 210,
-      "y": 210
+      "x": 280,
+      "y": 150
     }
   },
   "tileSize": {
@@ -33,12 +33,24 @@
         },
         "2": {
           "positionInTiles": {
-            "x": 3,
+            "x": 5,
+            "y": 4
+          }
+        },
+        "3": {
+          "positionInTiles": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        "4": {
+          "positionInTiles": {
+            "x": 7,
             "y": 4
           }
         }
-      }
-    },
+    }
+  },
     "castle": {
       "data": {
         "name": "castle",
