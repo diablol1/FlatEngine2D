@@ -4,7 +4,8 @@ Level::Level() : background(2) {
 	//Reading it from file might be better
 	textures["player"].loadFromFile("data/sprites/player.png");
 	player.setTexture(textures["player"]);
-	player.setMoveSpeed(600);
+	player.walkSpeed = 600;
+	player.gravity = 20;
 
 	loadFromFile("data/levels/level1/level1.json");
 }
@@ -54,10 +55,41 @@ void Level::processEvent(const sf::Event &event) {
 
 void Level::update(float deltaTime) {
 	player.update(deltaTime);
+	detectCollisions();
+
 	if(player.getViewGlobalBounds().left < background.getParts()[0].getGlobalBounds().left)
 		background.moveFrontToBack();
 	if(player.getViewGlobalBounds().left > background.getParts()[1].getGlobalBounds().left)
 		background.moveBackToFront();
+}
+
+void Level::detectCollisions() {
+	bool collidingX = false;
+	bool collidingY = false;
+	for(auto const& tile : tiles) {
+		if(!collidingX) {
+			sf::FloatRect boundsAfterMove = player.getGlobalBounds();
+			boundsAfterMove.left += player.getNextMove().x;
+
+			if (boundsAfterMove.intersects(tile.getGlobalBounds())) {
+				collidingX = true;
+				continue;
+			}
+		}
+		if(!collidingY) {
+			if(player.getGroundCollider().intersects(tile.getGlobalBounds())) {
+				collidingY = true;
+				continue;
+			}
+		}
+
+		if(collidingX && collidingY)
+			break;
+	}
+	if(!collidingX)
+		player.move(player.getNextMove().x, 0);
+	if(!collidingY)
+		player.move(0, player.getNextMove().y);
 }
 
 void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const {

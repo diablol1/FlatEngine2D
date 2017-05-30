@@ -30,5 +30,7 @@ private:
 	void loadTiles(const json& js);
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+	void detectCollisions();
 };
 
