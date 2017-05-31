@@ -66,18 +66,23 @@ void Level::update(float deltaTime) {
 void Level::detectCollisions() {
 	bool collidingX = false;
 	bool collidingY = false;
+
 	for(auto const& tile : tiles) {
+		sf::FloatRect tileBounds = tile.getGlobalBounds();
+
 		if(!collidingX) {
 			sf::FloatRect boundsAfterMove = player.getGlobalBounds();
 			boundsAfterMove.left += player.getNextMove().x;
 
-			if (boundsAfterMove.intersects(tile.getGlobalBounds())) {
+			if (boundsAfterMove.intersects(tileBounds)) {
 				collidingX = true;
+				player.moveCloserTo(tileBounds);
 				continue;
 			}
 		}
+
 		if(!collidingY) {
-			if(player.getGroundCollider().intersects(tile.getGlobalBounds())) {
+			if(player.getGroundCollider().intersects(tileBounds)) {
 				collidingY = true;
 				continue;
 			}

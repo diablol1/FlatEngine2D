@@ -12,10 +12,12 @@ public:
 
 	Player();
 
-	void centerView();
-
 	void processEvent(const sf::Event& event);
 	void update(float deltaTime);
+	void centerView();
+
+	void moveCloserTo(const sf::FloatRect &rect);
+
 	void setTexture(const sf::Texture& texture);
 
  	const sf::Texture* getTexture();

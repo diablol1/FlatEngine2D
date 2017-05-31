@@ -77,3 +77,12 @@ void Player::updateGroundCollider() {
 	groundCollider.width = getGlobalBounds().width;
 	groundCollider.height = 0.5;
 }
+
+void Player::moveCloserTo(const sf::FloatRect &rect) {
+	sf::FloatRect globalBounds = getGlobalBounds();
+	if(globalBounds.left + globalBounds.width <= rect.left)
+		setPosition(rect.left - globalBounds.width, globalBounds.top);
+	else {
+		setPosition(rect.left + rect.width, globalBounds.top);
+	}
+}
