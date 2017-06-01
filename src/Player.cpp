@@ -17,16 +17,16 @@ void Player::processEvent(const sf::Event &event) {
 }
 
 void Player::update(float deltaTime) {
-	nextMove = sf::Vector2f();
+	velocity = sf::Vector2f();
 
 	if(walkingDirection == HorizontalDirections::LEFT)
-		nextMove.x -= walkSpeed;
+		velocity.x -= walkSpeed;
 	else if(walkingDirection == HorizontalDirections::RIGHT)
-		nextMove.x += walkSpeed;
+		velocity.x += walkSpeed;
 
-	nextMove.y += gravity;
+	velocity.y += gravity;
 
-	nextMove *= deltaTime;
+	velocity *= deltaTime;
 
 	centerView();
 
@@ -64,7 +64,7 @@ sf::FloatRect Player::getGlobalBounds() {
 }
 
 sf::Vector2f Player::getNextMove() const {
-	return nextMove;
+	return velocity;
 }
 
 sf::FloatRect Player::getGroundCollider() const {

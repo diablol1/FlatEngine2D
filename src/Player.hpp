@@ -33,7 +33,7 @@ private:
 
 	sf::View view;
 
-	sf::Vector2f nextMove;
+	sf::Vector2f velocity;
 
 	HorizontalDirections walkingDirection;
 
