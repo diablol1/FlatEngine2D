@@ -72,7 +72,7 @@ void Level::detectCollisions() {
 
 		if(!collidingX) {
 			sf::FloatRect boundsAfterMove = player.getGlobalBounds();
-			boundsAfterMove.left += player.getNextMove().x;
+			boundsAfterMove.left += player.getVelocity().x;
 
 			if (boundsAfterMove.intersects(tileBounds)) {
 				collidingX = true;
@@ -91,10 +91,11 @@ void Level::detectCollisions() {
 		if(collidingX && collidingY)
 			break;
 	}
+
 	if(!collidingX)
-		player.move(player.getNextMove().x, 0);
+		player.move(player.getVelocity().x, 0);
 	if(!collidingY)
-		player.move(0, player.getNextMove().y);
+		player.move(0, player.getVelocity().y);
 }
 
 void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const {
