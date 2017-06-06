@@ -23,7 +23,7 @@ public:
  	const sf::Texture* getTexture();
 	sf::FloatRect getViewGlobalBounds() const;
 	sf::FloatRect getGlobalBounds();
-	sf::Vector2f getNextMove() const;
+	sf::Vector2f getVelocity() const;
 	sf::FloatRect getGroundCollider() const;
 
 private:

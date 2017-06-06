@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Player.hpp"
 
 Player::Player() {
@@ -63,7 +62,7 @@ sf::FloatRect Player::getGlobalBounds() {
 	return sf::FloatRect(getPosition(), sf::Vector2f(getTexture()->getSize()));
 }
 
-sf::Vector2f Player::getNextMove() const {
+sf::Vector2f Player::getVelocity() const {
 	return velocity;
 }
 
