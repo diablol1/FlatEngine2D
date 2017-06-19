@@ -9,7 +9,7 @@
 
 class Entity {
 public:
-	Entity(const std::string& name);
+	Entity(const std::string &name, Entity* parent);
 
 	void update(float deltaTime);
 
@@ -56,12 +56,15 @@ public:
 
 	Entity& getEntity(const std::string& name);
 
-	std::string getName();
+	void setName(const std::string& name);
+	std::string getName() const;
 
 private:
 	std::unordered_map<std::size_t, std::any> components;
+	std::unordered_map<std::string, std::shared_ptr<Entity>> entities;
 
-	std::unordered_map<std::string, std::unique_ptr<Entity>> entities;
 	std::string name;
+
+	Entity* parent;
 };
 
