@@ -4,12 +4,19 @@
 #include <any>
 #include <unordered_map>
 #include <memory>
+#include <set>
 
 #include "Component.hpp"
 
+using Entities = std::set<std::shared_ptr<Entity>>;
+using TagsList = std::initializer_list<std::string>;
+
 class Entity {
 public:
-	Entity(const std::string &name, Entity* parent);
+	static void createTags(const TagsList& tags);
+	static Entities& getEntitiesByTag(const std::string& tag);
+
+	Entity(const std::string &name, const std::string &tag, Entity *parent);
 
 	void update(float deltaTime);
 
@@ -50,7 +57,7 @@ public:
 
 	bool hasEntity(const std::string& name);
 
-	void addEntity(const std::string& name);
+	void addEntity(const std::string& name, const std::string& tag);
 
 	void deleteEntity(const std::string& name);
 
@@ -59,11 +66,17 @@ public:
 	void setName(const std::string& name);
 	std::string getName() const;
 
+	void setTag(const std::string& tag);
+	std::string getTag() const;
 private:
+	static std::set<std::string> tags;
+	static std::unordered_map<std::string, Entities> entitiesGroupedByTags;
+
 	std::unordered_map<std::size_t, std::any> components;
 	std::unordered_map<std::string, std::shared_ptr<Entity>> entities;
 
 	std::string name;
+	std::string tag;
 
 	Entity* parent;
 };

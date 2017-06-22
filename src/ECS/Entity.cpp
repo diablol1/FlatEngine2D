@@ -1,8 +1,24 @@
 #include "Entity.hpp"
 
-Entity::Entity(const std::string &name, Entity* parent) {
-	this->parent = parent;
+std::set<std::string> Entity::tags;
+std::unordered_map<std::string, Entities> Entity::entitiesGroupedByTags;
+
+void Entity::createTags(const TagsList& tags) {
+	assert(Entity::tags.empty());
+	Entity::tags = tags;
+}
+
+Entities& Entity::getEntitiesByTag(const std::string &tag) {
+	assert(Entity::tags.count(tag));
+	return entitiesGroupedByTags[tag];
+}
+
+Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) {
+	assert(tags.count(tag));
+
 	this->name = name;
+	this->tag = tag;
+	this->parent = parent;
 }
 
 void Entity::update(float deltaTime) {
@@ -15,15 +31,18 @@ bool Entity::hasEntity(const std::string &name) {
 	return entities.count(name) == 1;
 }
 
-void Entity::addEntity(const std::string &name) {
+void Entity::addEntity(const std::string &name, const std::string& tag) {
 	assert(!hasEntity(name));
 
-	entities[name] = std::make_unique<Entity>(name, this);
+	entities[name] = std::make_unique<Entity>(name, tag, this);
+	entitiesGroupedByTags[tag].insert(entities[name]);
 }
 
 void Entity::deleteEntity(const std::string &name) {
 	assert(hasEntity(name));
 
+	Entities& e = getEntitiesByTag(entities[name]->tag);
+	e.erase(entities[name]);
 	entities.erase(name);
 }
 
@@ -45,4 +64,20 @@ void Entity::setName(const std::string& name) {
 
 std::string Entity::getName() const {
 	return name;
+}
+
+std::string Entity::getTag() const {
+	return tag;
+}
+
+void Entity::setTag(const std::string& tag) {
+	assert(Entity::tags.count(tag));
+
+	std::string oldTag = this->tag;
+	this->tag = tag;
+
+	std::shared_ptr<Entity> sharedPtrToThis = parent->entities[name];
+
+	Entity::entitiesGroupedByTags[tag].insert(sharedPtrToThis);
+	Entity::entitiesGroupedByTags[oldTag].erase(sharedPtrToThis);
 }
