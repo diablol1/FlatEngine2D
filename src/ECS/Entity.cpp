@@ -1,6 +1,7 @@
+#include <iostream>
 #include "Entity.hpp"
 
-std::set<std::string> Entity::tags;
+std::unordered_set<std::string> Entity::tags;
 std::unordered_map<std::string, Entities> Entity::entitiesGroupedByTags;
 
 void Entity::createTags(const TagsList& tags) {
@@ -22,8 +23,26 @@ Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) 
 }
 
 void Entity::update(float deltaTime) {
+	checkForDestroying();
+
 	for(auto& c : components) {
-		std::any_cast<Component&>(c.second).update(deltaTime);
+		c.second->update(deltaTime);
+	}
+}
+
+void Entity::checkForDestroying() {
+	for(auto it = entities.begin(); it != entities.end();) {
+		if(it->second->isReadyToDestroy())
+			it = entities.erase(it);
+		else
+			++it;
+	}
+
+	for(auto it = components.begin(); it != components.end();) {
+		if(it->second->isReadyToDestroy())
+			it = components.erase(it);
+		else
+			++it;
 	}
 }
 
@@ -36,14 +55,6 @@ void Entity::addEntity(const std::string &name, const std::string& tag) {
 
 	entities[name] = std::make_unique<Entity>(name, tag, this);
 	entitiesGroupedByTags[tag].insert(entities[name]);
-}
-
-void Entity::deleteEntity(const std::string &name) {
-	assert(hasEntity(name));
-
-	Entities& e = getEntitiesByTag(entities[name]->tag);
-	e.erase(entities[name]);
-	entities.erase(name);
 }
 
 Entity &Entity::getEntity(const std::string &name) {
