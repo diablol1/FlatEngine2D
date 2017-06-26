@@ -13,6 +13,8 @@ using TagsList = std::initializer_list<std::string>;
 
 class Entity : public Destroyable {
 public:
+	bool active = true;
+
 	static void createTags(const TagsList& tags);
 	static Entities& getEntitiesByTag(const std::string& tag);
 
@@ -58,7 +60,6 @@ public:
 
 	void setTag(const std::string& tag);
 	std::string getTag() const;
-
 private:
 
 	static std::unordered_set<std::string> tags;

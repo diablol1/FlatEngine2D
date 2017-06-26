@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Entity.hpp"
 
 std::unordered_set<std::string> Entity::tags;
@@ -25,8 +24,14 @@ Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) 
 void Entity::update(float deltaTime) {
 	checkForDestroying();
 
+	for(auto& e : entities) {
+		if(e.second->active)
+			e.second->update(deltaTime);
+	}
+
 	for(auto& c : components) {
-		c.second->update(deltaTime);
+		if(c.second->enabled)
+			c.second->update(deltaTime);
 	}
 }
 
