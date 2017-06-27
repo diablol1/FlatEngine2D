@@ -15,8 +15,8 @@ class Entity : public Destroyable {
 public:
 	bool active = true;
 
-	static void createTags(const TagsList& tags);
-	static Entities& getEntitiesByTag(const std::string& tag);
+	static void CreateTags(const TagsList &tags);
+	static Entities& GetEntitiesByTag(const std::string &tag);
 
 	Entity(const std::string &name, const std::string &tag, Entity *parent);
 
@@ -62,8 +62,8 @@ public:
 	std::string getTag() const;
 private:
 
-	static std::unordered_set<std::string> tags;
-	static std::unordered_map<std::string, Entities> entitiesGroupedByTags;
+	static std::unordered_set<std::string> Tags;
+	static std::unordered_map<std::string, Entities> EntitiesGroupedByTags;
 
 	std::unordered_map<std::size_t, std::shared_ptr<Component>> components;
 	std::unordered_map<std::string, std::shared_ptr<Entity>> entities;

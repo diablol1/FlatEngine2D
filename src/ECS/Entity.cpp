@@ -1,20 +1,20 @@
 #include "Entity.hpp"
 
-std::unordered_set<std::string> Entity::tags;
-std::unordered_map<std::string, Entities> Entity::entitiesGroupedByTags;
+std::unordered_set<std::string> Entity::Tags;
+std::unordered_map<std::string, Entities> Entity::EntitiesGroupedByTags;
 
-void Entity::createTags(const TagsList& tags) {
-	assert(Entity::tags.empty());
-	Entity::tags = tags;
+void Entity::CreateTags(const TagsList &tags) {
+	assert(Entity::Tags.empty());
+	Entity::Tags = tags;
 }
 
-Entities& Entity::getEntitiesByTag(const std::string &tag) {
-	assert(Entity::tags.count(tag));
-	return entitiesGroupedByTags[tag];
+Entities& Entity::GetEntitiesByTag(const std::string &tag) {
+	assert(Entity::Tags.count(tag));
+	return EntitiesGroupedByTags[tag];
 }
 
 Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) {
-	assert(tags.count(tag));
+	assert(Tags.count(tag));
 
 	this->name = name;
 	this->tag = tag;
@@ -59,7 +59,7 @@ void Entity::addEntity(const std::string &name, const std::string& tag) {
 	assert(!hasEntity(name));
 
 	entities[name] = std::make_unique<Entity>(name, tag, this);
-	entitiesGroupedByTags[tag].insert(entities[name]);
+	EntitiesGroupedByTags[tag].insert(entities[name]);
 }
 
 Entity &Entity::getEntity(const std::string &name) {
@@ -87,13 +87,13 @@ std::string Entity::getTag() const {
 }
 
 void Entity::setTag(const std::string& tag) {
-	assert(Entity::tags.count(tag));
+	assert(Entity::Tags.count(tag));
 
 	std::string oldTag = this->tag;
 	this->tag = tag;
 
 	std::shared_ptr<Entity> sharedPtrToThis = parent->entities[name];
 
-	Entity::entitiesGroupedByTags[tag].insert(sharedPtrToThis);
-	Entity::entitiesGroupedByTags[oldTag].erase(sharedPtrToThis);
+	Entity::EntitiesGroupedByTags[tag].insert(sharedPtrToThis);
+	Entity::EntitiesGroupedByTags[oldTag].erase(sharedPtrToThis);
 }
