@@ -4,6 +4,12 @@
 
 class Entity;
 
+/*NOTE:
+ * Component which uses another component has to be added as the second one
+ * E.g. Adding Collider after Position, because Collider needs Position
+ * Scripts should be added after normal components
+*/
+
 class Component : public Destroyable {
 public:
 	Entity* entity;
