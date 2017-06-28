@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
 project(Platformer2D)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+add_compile_options(-std=c++14)
 
-set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.hpp src/GameState.hpp src/PlayState.cpp src/PlayState.hpp src/Enums.hpp src/EnumClassHash.hpp src/Player.cpp src/Player.hpp src/Level.cpp src/Level.hpp src/InfiniteBackground.cpp src/InfiniteBackground.hpp)
+include_directories(src)
+
+set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.hpp src/GameState.hpp src/PlayState.cpp src/PlayState.hpp src/Enums.hpp src/EnumClassHash.hpp src/Player.cpp src/Player.hpp src/Level.cpp src/Level.hpp src/InfiniteBackground.cpp src/InfiniteBackground.hpp src/ECS/Entity.cpp src/ECS/Entity.hpp src/ECS/Component.hpp src/ECS/Destroyable.hpp src/ECS/Destroyable.cpp)
 add_executable(Platformer2D ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/")
