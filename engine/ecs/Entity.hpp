@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include <cassert>
 #include <unordered_map>
 #include <memory>
@@ -20,6 +22,7 @@ public:
 
 	Entity(const std::string &name, const std::string &tag, Entity *parent);
 
+	void passEvent(const sf::Event& event);
 	void update(float deltaTime);
 
 	template<typename ComponentType>

@@ -5,7 +5,7 @@ add_compile_options(-std=c++14)
 
 include_directories(engine)
 
-set(SOURCE_FILES game/main.cpp engine/ecs/Component.hpp engine/ecs/Destroyable.hpp engine/ecs/Destroyable.cpp engine/ecs/Entity.hpp engine/ecs/Entity.cpp)
+set(SOURCE_FILES game/main.cpp engine/ecs/Component.hpp engine/ecs/Destroyable.hpp engine/ecs/Destroyable.cpp engine/ecs/Entity.hpp engine/ecs/Entity.cpp engine/Game.cpp engine/Game.hpp)
 add_executable(Platformer2D ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/")

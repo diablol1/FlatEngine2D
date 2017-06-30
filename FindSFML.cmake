@@ -236,7 +236,7 @@ if(SFML_STATIC_LIBRARIES)
         set(FIND_SFML_OS_MACOSX 1)
     endif()
 
-    # start with an empty list
+    # run with an empty list
     set(SFML_DEPENDENCIES)
     set(FIND_SFML_DEPENDENCIES_NOTFOUND)
 
