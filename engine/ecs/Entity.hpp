@@ -63,6 +63,8 @@ public:
 
 	void setTag(const std::string& tag);
 	std::string getTag() const;
+
+    Entity* getParent();
 private:
 
 	static std::unordered_set<std::string> Tags;

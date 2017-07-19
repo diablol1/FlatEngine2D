@@ -106,3 +106,7 @@ void Entity::setTag(const std::string& tag) {
 	Entity::EntitiesGroupedByTags[tag].insert(sharedPtrToThis);
 	Entity::EntitiesGroupedByTags[oldTag].erase(sharedPtrToThis);
 }
+
+Entity *Entity::getParent() {
+    return parent;
+}
