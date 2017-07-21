@@ -24,18 +24,19 @@ public:
 
 	void passEvent(const sf::Event& event);
 	void update(float deltaTime);
+	void drawSprites(sf::RenderWindow& window);
 
 	template<typename ComponentType>
 	bool hasComponent() const {
 		return components.count(getComponentHashCode<ComponentType>()) == 1;
 	}
 
-	template<typename ComponentType>
-	void addComponent() {
+	template<typename ComponentType, typename... TArgs>
+	void addComponent(TArgs... args) {
 		static_assert(std::is_base_of<Component, ComponentType>::value);
 		assert(!hasComponent<ComponentType>());
 
-		components[getComponentHashCode<ComponentType>()] = std::make_shared<ComponentType>();
+		components[getComponentHashCode<ComponentType>()] = std::make_shared<ComponentType>(args...);
 		getComponent<ComponentType>().entity = this;
 		getComponent<ComponentType>().init();
 	}
