@@ -16,9 +16,8 @@ class Component : public Destroyable {
 public:
 	Entity* entity;
 
-	virtual void init() = 0;
-	virtual void update(float deltaTime) = 0;
-
+	virtual void init() {}
+	virtual void update(float deltaTime) {}
 	virtual void processEvent(const sf::Event& event) {}
 
 	bool enabled = true;
