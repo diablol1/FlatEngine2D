@@ -18,7 +18,7 @@ void Game::run() {
 			detectAndPassEvent();
 			scene.update(TIME_PER_FRAME.asSeconds());
 		}
-		//Drawing will be here
+        draw();
 	}
 }
 
@@ -30,4 +30,10 @@ void Game::detectAndPassEvent() {
 
 		scene.passEvent(event);
 	}
+}
+
+void Game::draw() {
+    window.clear();
+    scene.drawSprites(window);
+    window.display();
 }

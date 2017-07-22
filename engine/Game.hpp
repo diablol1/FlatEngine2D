@@ -12,9 +12,9 @@ public:
 	Entity scene;
 private:
 	void detectAndPassEvent();
+    void draw();
 
 	const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
 	sf::RenderWindow window;
 };
-

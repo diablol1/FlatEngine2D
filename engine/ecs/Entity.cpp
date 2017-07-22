@@ -60,6 +60,15 @@ void Entity::checkForDestroying() {
 	}
 }
 
+void Entity::drawSprites(sf::RenderWindow& window) {
+    if(hasComponent<Sprite>())
+        getComponent<Sprite>().draw(window);
+
+    for(auto& e : entities) {
+        e.second->drawSprites(window);
+    }
+}
+
 bool Entity::hasEntity(const std::string &name) {
 	return entities.count(name) == 1;
 }

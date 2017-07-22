@@ -7,7 +7,7 @@
 #include <memory>
 #include <unordered_set>
 
-#include "Component.hpp"
+#include <components/Sprite.hpp>
 #include "Destroyable.hpp"
 
 using Entities = std::unordered_set<std::shared_ptr<Entity>>;
@@ -66,6 +66,7 @@ public:
 	std::string getTag() const;
 
     Entity* getParent();
+
 private:
 
 	static std::unordered_set<std::string> Tags;
@@ -81,4 +82,3 @@ private:
 
 	void checkForDestroying();
 };
-
