@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <memory>
 #include <unordered_set>
+#include <any>
 
 #include <components/Sprite.hpp>
 #include "Destroyable.hpp"
@@ -42,6 +43,11 @@ public:
 	}
 
 	template<typename ComponentType>
+	void sendMessage(const std::string& message, const std::any& value) {
+		getComponent<ComponentType>().onMessage(message, value);
+	}
+
+	template<typename ComponentType>
 	ComponentType& getComponent() {
 		assert(hasComponent<ComponentType>());
 
@@ -66,6 +72,7 @@ public:
 	std::string getTag() const;
 
     Entity* getParent();
+    std::unordered_map<std::string, std::shared_ptr<Entity>>& getEntities();
 
 private:
 

@@ -33,15 +33,15 @@ void Entity::passEvent(const sf::Event &event) {
 void Entity::update(float deltaTime) {
 	checkForDestroying();
 
-	for(auto& e : entities) {
-		if(e.second->active)
-			e.second->update(deltaTime);
-	}
-
 	for(auto& c : components) {
 		if(c.second->enabled)
 			c.second->update(deltaTime);
 	}
+
+    for(auto& e : entities) {
+        if(e.second->active)
+            e.second->update(deltaTime);
+    }
 }
 
 void Entity::checkForDestroying() {
@@ -58,15 +58,6 @@ void Entity::checkForDestroying() {
 		else
 			++it;
 	}
-}
-
-void Entity::drawSprites(sf::RenderWindow& window) {
-    if(hasComponent<Sprite>())
-        getComponent<Sprite>().draw(window);
-
-    for(auto& e : entities) {
-        e.second->drawSprites(window);
-    }
 }
 
 bool Entity::hasEntity(const std::string &name) {
@@ -116,6 +107,11 @@ void Entity::setTag(const std::string& tag) {
 	Entity::EntitiesGroupedByTags[oldTag].erase(sharedPtrToThis);
 }
 
-Entity *Entity::getParent() {
+Entity* Entity::getParent() {
     return parent;
 }
+
+std::unordered_map<std::string, std::shared_ptr<Entity>> &Entity::getEntities() {
+    return entities;
+}
+

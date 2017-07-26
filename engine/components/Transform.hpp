@@ -3,16 +3,29 @@
 #include <ecs/Entity.hpp>
 #include <ecs/Component.hpp>
 
-class Transform : public Component, public sf::Transformable {
+class Transform : public Component {
 public:
-    void update(float deltaTime) override;
+    void move(const sf::Vector2f& offset);
+    void scale(const sf::Vector2f& factors);
+    void rotate(float angle);
 
-    sf::Vector2f getGlobalPosition() const;
-    sf::Vector2f getGlobalScale() const;
+    void setPosition(const sf::Vector2f &position);
+    void setScale(const sf::Vector2f &factors);
+    void setRotation(float angle);
+
+    const sf::Vector2f& getPosition() const;
+    const sf::Vector2f& getScale() const;
+    float getRotation() const;
+
+    const sf::Vector2f& getGlobalPosition() const;
+    const sf::Vector2f& getGlobalScale() const;
     float getGlobalRotation() const;
 
 private:
-    sf::Vector2f globalPosition;
-    sf::Vector2f globalScale;
-    float globalRotation;
+    sf::Transformable globalTransform;
+    sf::Transformable localTransform;
+
+    bool toBeUpdated = true;
+
+    void update(float deltaTime) override;
 };

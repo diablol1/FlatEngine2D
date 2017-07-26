@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 project(Platformer2D)
 
-add_compile_options(-std=c++14)
+add_compile_options(-std=c++17)
 
 include_directories(engine)
 
