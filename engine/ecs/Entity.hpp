@@ -9,6 +9,7 @@
 #include <any>
 
 #include <components/Sprite.hpp>
+#include <components/Transform.hpp>
 #include "Destroyable.hpp"
 
 using Entities = std::unordered_set<std::shared_ptr<Entity>>;
@@ -16,7 +17,7 @@ using TagsList = std::initializer_list<std::string>;
 
 class Entity : public Destroyable {
 public:
-	bool active = true;
+    bool active = true;
 
 	static void CreateTags(const TagsList &tags);
 	static Entities& GetEntitiesByTag(const std::string &tag);

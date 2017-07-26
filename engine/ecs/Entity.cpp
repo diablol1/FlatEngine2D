@@ -3,6 +3,7 @@
 std::unordered_set<std::string> Entity::Tags;
 std::unordered_map<std::string, Entities> Entity::EntitiesGroupedByTags;
 
+
 void Entity::CreateTags(const TagsList &tags) {
 	assert(Entity::Tags.empty());
 	Entity::Tags = tags;
@@ -19,6 +20,8 @@ Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) 
 	this->name = name;
 	this->tag = tag;
 	this->parent = parent;
+
+    addComponent<Transform>();
 }
 
 void Entity::passEvent(const sf::Event &event) {
