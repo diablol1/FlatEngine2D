@@ -2,27 +2,38 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
 #include <cassert>
 #include <unordered_map>
 #include <memory>
 #include <unordered_set>
 #include <any>
+#include <fstream>
+
+#include <utility.h>
 
 #include <components/Sprite.hpp>
 #include <components/Transform.hpp>
 #include "Destroyable.hpp"
+#include "Serializable.hpp"
 
 using Entities = std::unordered_set<std::shared_ptr<Entity>>;
 using TagsList = std::initializer_list<std::string>;
 
-class Entity : public Destroyable {
+class Entity : public Destroyable, private Serializable, public std::enable_shared_from_this<Entity> {
 public:
     bool active = true;
 
 	static void CreateTags(const TagsList &tags);
 	static Entities& GetEntitiesByTag(const std::string &tag);
+	static Entity& GetRoot();
 
 	Entity(const std::string &name, const std::string &tag, Entity *parent);
+
+    void saveToFile(const std::string &filename);
+    void loadFromFile(const std::string &filename);
+
+    void serialize(json &jsonData) const override;
 
 	void passEvent(const sf::Event& event);
 	void update(float deltaTime);
@@ -30,7 +41,7 @@ public:
 
 	template<typename ComponentType>
 	bool hasComponent() const {
-		return components.count(getComponentHashCode<ComponentType>()) == 1;
+		return components.count(utility::getClassHashCode<ComponentType>()) == 1;
 	}
 
 	template<typename ComponentType, typename... TArgs>
@@ -38,7 +49,7 @@ public:
 		static_assert(std::is_base_of<Component, ComponentType>::value);
 		assert(!hasComponent<ComponentType>());
 
-		components[getComponentHashCode<ComponentType>()] = std::make_shared<ComponentType>(args...);
+		components[utility::getClassHashCode<ComponentType>()] = std::make_shared<ComponentType>(args...);
 		getComponent<ComponentType>().entity = this;
 		getComponent<ComponentType>().init();
 	}
@@ -52,12 +63,7 @@ public:
 	ComponentType& getComponent() {
 		assert(hasComponent<ComponentType>());
 
-		return *std::dynamic_pointer_cast<ComponentType>(components[getComponentHashCode<ComponentType>()]);
-	}
-
-	template<typename ComponentType>
-	std::size_t getComponentHashCode() const {
-		return typeid(ComponentType).hash_code();
+		return *std::dynamic_pointer_cast<ComponentType>(components[utility::getClassHashCode<ComponentType>()]);
 	}
 
 	bool hasEntity(const std::string& name);
@@ -72,13 +78,15 @@ public:
 	void setTag(const std::string& tag);
 	std::string getTag() const;
 
+    void deserialize(const json& jsonData) override;
+
     Entity* getParent();
     std::unordered_map<std::string, std::shared_ptr<Entity>>& getEntities();
-
 private:
 
 	static std::unordered_set<std::string> Tags;
 	static std::unordered_map<std::string, Entities> EntitiesGroupedByTags;
+	static Entity* Root;
 
 	std::unordered_map<std::size_t, std::shared_ptr<Component>> components;
 	std::unordered_map<std::string, std::shared_ptr<Entity>> entities;

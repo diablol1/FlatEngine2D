@@ -1,5 +1,31 @@
 #include "Transform.hpp"
 
+Transform::_addToComponentsCreator Transform::_componentsCreatorAdder;
+
+Transform *Transform::clone() const {
+    return new Transform(*this);
+}
+
+void Transform::serialize(json &jsonData) const {
+    jsonData["position"]["x"] = getPosition().x;
+    jsonData["position"]["y"] = getPosition().y;
+
+    jsonData["scale"]["x"] = getScale().x;
+    jsonData["scale"]["y"] = getScale().y;
+
+    jsonData["rotation"] = getRotation();
+}
+
+void Transform::deserialize(const json &jsonData) {
+    setPosition(sf::Vector2f(jsonData["position"]["x"],
+                             jsonData["position"]["y"]));
+
+    setScale(sf::Vector2f(jsonData["scale"]["x"],
+                          jsonData["scale"]["y"]));
+
+    setRotation(jsonData["rotation"]);
+}
+
 void Transform::update(float deltaTime) {
     if(entity->getParent() == nullptr) {
         if(toBeUpdated) {

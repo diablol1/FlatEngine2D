@@ -1,17 +1,29 @@
 #include "Sprite.hpp"
 
+Sprite::_addToComponentsCreator Sprite::_componentsCreatorAdder;
 std::unordered_map<std::string, sf::Texture> Sprite::Textures;
 
-Sprite::Sprite(const std::string& texturePath) {
-    setTexture(texturePath);
+Sprite* Sprite::clone() const {
+    return new Sprite(*this);
+}
+
+void Sprite::serialize(json &jsonData) const {
+    jsonData["texture"] = getTexturePath();
+}
+
+void Sprite::deserialize(const json &jsonData) {
+    setTexture(jsonData["texture"]);
 }
 
 void Entity::drawSprites(sf::RenderWindow& window) {
-    if(hasComponent<Sprite>())
-        getComponent<Sprite>().draw(window);
+    if(hasComponent<Sprite>()) {
+        if(getComponent<Sprite>().enabled)
+            getComponent<Sprite>().draw(window);
+    }
 
     for(auto& e : entities) {
-        e.second->drawSprites(window);
+        if(e.second->active)
+            e.second->drawSprites(window);
     }
 }
 
@@ -27,15 +39,20 @@ void Sprite::draw(sf::RenderWindow &window) {
 }
 
 void Sprite::setTexture(std::string path) {
-    path = "../game/textures/" + path; //Making path relevant to game/textures/
-
-    if(Textures.count(path))
+    if(Textures.count(path)) {
         sprite.setTexture(Textures[path]);
+        texturePath = path;
+    }
     else {
         sf::Texture tmp;
-        if(tmp.loadFromFile(path)) {
+        if(tmp.loadFromFile("../game/textures/" + path)) {
             Textures[path] = tmp;
             sprite.setTexture(Textures[path]);
+            texturePath = path;
         }
     }
+}
+
+std::string Sprite::getTexturePath() const {
+    return texturePath;
 }

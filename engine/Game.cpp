@@ -2,7 +2,7 @@
 
 Game::Game(unsigned int width, unsigned int height, const std::string &title, sf::Uint32 style) :
 	window(sf::VideoMode(width, height), title, style),
-	scene("Scene", "Scene", nullptr) {
+	scene(std::make_shared<Entity>("Scene", "Scene", nullptr)) {
 }
 
 void Game::run() {
@@ -16,7 +16,7 @@ void Game::run() {
 		while(timeSinceLastUpdate > TIME_PER_FRAME) {
 			timeSinceLastUpdate -= TIME_PER_FRAME;
 			detectAndPassEvent();
-			scene.update(TIME_PER_FRAME.asSeconds());
+			scene->update(TIME_PER_FRAME.asSeconds());
 		}
         draw();
 	}
@@ -28,12 +28,12 @@ void Game::detectAndPassEvent() {
 		if(event.type == sf::Event::Closed)
 			window.close();
 
-		scene.passEvent(event);
+		scene->passEvent(event);
 	}
 }
 
 void Game::draw() {
     window.clear();
-    scene.drawSprites(window);
+    scene->drawSprites(window);
     window.display();
 }

@@ -5,6 +5,7 @@
 #include <any>
 
 #include "Destroyable.hpp"
+#include "Serializable.hpp"
 
 class Entity;
 
@@ -14,12 +15,14 @@ class Entity;
  * Scripts should be added after normal components
 */
 
-class Component : public Destroyable {
+class Component : public Destroyable, public Serializable {
     friend class Entity;
 public:
     bool enabled = true;
+
+	virtual Component* clone() const = 0;
 protected:
-	Entity* entity;
+    Entity* entity;
 
 	virtual void init() {}
 	virtual void update(float deltaTime) {}
@@ -27,4 +30,3 @@ protected:
 
     virtual void onMessage(const std::string& message, const std::any& value) {}
 };
-

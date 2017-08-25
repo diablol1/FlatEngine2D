@@ -9,7 +9,7 @@ public:
 	Game(unsigned int width, unsigned int height, const std::string& title, sf::Uint32 style);
 	void run();
 
-	Entity scene;
+	std::shared_ptr<Entity> scene;
 private:
 	void detectAndPassEvent();
     void draw();
