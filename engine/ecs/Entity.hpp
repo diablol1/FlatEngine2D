@@ -10,7 +10,7 @@
 #include <any>
 #include <fstream>
 
-#include "common/utility.h"
+#include "common/utility.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "ecs/Destroyable.hpp"
