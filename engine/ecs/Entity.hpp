@@ -10,12 +10,11 @@
 #include <any>
 #include <fstream>
 
-#include <utility.h>
-
-#include <components/Sprite.hpp>
-#include <components/Transform.hpp>
-#include "Destroyable.hpp"
-#include "Serializable.hpp"
+#include "common/utility.h"
+#include "components/Sprite.hpp"
+#include "components/Transform.hpp"
+#include "ecs/Destroyable.hpp"
+#include "ecs/Serializable.hpp"
 
 using Entities = std::unordered_set<std::shared_ptr<Entity>>;
 using TagsList = std::initializer_list<std::string>;

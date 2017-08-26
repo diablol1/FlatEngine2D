@@ -2,9 +2,8 @@
 
 #include <unordered_map>
 
-#include <utility.h>
-
-#include "Component.hpp"
+#include "common/utility.h"
+#include "ecs/Component.hpp"
 
 class ComponentsCreator {
 public:

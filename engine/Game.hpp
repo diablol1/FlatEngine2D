@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <ecs/Entity.hpp>
+#include "ecs/Entity.hpp"
 
 class Game {
 public:

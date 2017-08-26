@@ -2,11 +2,9 @@
 
 #include <unordered_map>
 
-#include <ecs/ComponentsCreator.h>
-
-#include <ecs/Component.hpp>
-
-#include <components/Transform.hpp>
+#include "ecs/ComponentsCreator.h"
+#include "ecs/Component.hpp"
+#include "components/Transform.hpp"
 
 class Sprite : public Component {
     friend class Entity;

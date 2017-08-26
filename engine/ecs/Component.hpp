@@ -4,8 +4,8 @@
 
 #include <any>
 
-#include "Destroyable.hpp"
-#include "Serializable.hpp"
+#include "ecs/Destroyable.hpp"
+#include "ecs/Serializable.hpp"
 
 class Entity;
 

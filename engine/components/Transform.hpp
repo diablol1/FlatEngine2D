@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ecs/Entity.hpp>
-#include <ecs/Component.hpp>
+#include "ecs/Entity.hpp"
+#include "ecs/Component.hpp"
 
 class Transform : public Component {
 public:
