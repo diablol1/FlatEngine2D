@@ -1,8 +1,9 @@
 #include "Game.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string &title, sf::Uint32 style) :
-	window(sf::VideoMode(width, height), title, style),
-	scene(std::make_shared<Entity>("Scene", "Scene", nullptr)) {
+	window(sf::VideoMode(width, height), title, style) {
+	Entity::LoadTagsFromFile("../game/tags.txt");
+    scene = std::make_shared<Entity>("Scene", "Scene", nullptr);
 }
 
 void Game::run() {

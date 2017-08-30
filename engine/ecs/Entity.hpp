@@ -18,13 +18,12 @@
 #include "ecs/Serializable.hpp"
 
 using Entities = std::unordered_set<std::shared_ptr<Entity>>;
-using TagsList = std::initializer_list<std::string>;
 
 class Entity : public Destroyable, private Serializable, public std::enable_shared_from_this<Entity> {
 public:
     bool active = true;
 
-	static void CreateTags(const TagsList &tags);
+	static void LoadTagsFromFile(const std::string& filename);
 	static Entities& GetEntitiesByTag(const std::string &tag);
 	static Entity& GetRoot();
 

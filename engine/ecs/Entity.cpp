@@ -4,13 +4,23 @@ std::unordered_set<std::string> Entity::Tags;
 std::unordered_map<std::string, Entities> Entity::EntitiesGroupedByTags;
 Entity* Entity::Root;
 
-void Entity::CreateTags(const TagsList &tags) {
+void Entity::LoadTagsFromFile(const std::string& filename) {
     if(!Entity::Tags.empty()) {
-        Logger::GetInstance().log(Logger::MessageType::Error, "Tags already exist. They can't be created");
+        Logger::GetInstance().log(Logger::MessageType::Error, "Tags already exist. They can't be loaded");
         return;
     }
 
-    Entity::Tags = tags;
+    std::ifstream file(filename);
+    if(!file.is_open() || utility::isFileEmpty(file)) {
+        Logger::GetInstance().log(Logger::MessageType::Error,
+                                  "Tags couldn't be loaded from file \"" + filename + "\". Make sure it exists and isn't empty");
+        return;
+    }
+
+    std::string line;
+    while(std::getline(file, line)) {
+        Tags.insert(line);
+    }
 }
 
 Entities& Entity::GetEntitiesByTag(const std::string &tag) {

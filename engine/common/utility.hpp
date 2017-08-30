@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 
 namespace utility {
 
@@ -27,4 +28,6 @@ namespace utility {
     std::size_t getClassHashCode(const Type& obj) {
         return typeid(obj).hash_code();
     }
+
+    bool isFileEmpty(std::ifstream& file);
 }

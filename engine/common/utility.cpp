@@ -11,4 +11,8 @@ namespace utility {
 
         return s;
     }
+
+    bool isFileEmpty(std::ifstream& file) {
+        return file.peek() == std::ifstream::traits_type::eof();
+    }
 }
