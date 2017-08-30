@@ -10,6 +10,7 @@
 #include <any>
 #include <fstream>
 
+#include "common/Logger.hpp"
 #include "common/utility.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
@@ -45,8 +46,16 @@ public:
 
 	template<typename ComponentType, typename... TArgs>
 	void addComponent(TArgs... args) {
-		static_assert(std::is_base_of<Component, ComponentType>::value);
-		assert(!hasComponent<ComponentType>());
+		if(!std::is_base_of<Component, ComponentType>::value) {
+			Logger::GetInstance().log(Logger::MessageType::Error,
+                                      '"' + utility::getClassName<ComponentType>() +  "\" isn't Component-deriving type. It can't be added");
+			return;
+		}
+		if(hasComponent<ComponentType>()) {
+			Logger::GetInstance().log(Logger::MessageType::Error,
+                                      "Entity \"" + name + "\" has already component \"" + utility::getClassName<ComponentType>() + "\". It can't be added");
+            return;
+		}
 
 		components[utility::getClassHashCode<ComponentType>()] = std::make_shared<ComponentType>(args...);
 		getComponent<ComponentType>().entity = this;
@@ -60,7 +69,8 @@ public:
 
 	template<typename ComponentType>
 	ComponentType& getComponent() {
-		assert(hasComponent<ComponentType>());
+        if(!hasComponent<ComponentType>())
+            Logger::GetInstance().log(Logger::MessageType::Error, "Entity \"" + name + "\" doesn't have component \"" + utility::getClassName<ComponentType>() + "\". It can't be returned");
 
 		return *std::dynamic_pointer_cast<ComponentType>(components[utility::getClassHashCode<ComponentType>()]);
 	}

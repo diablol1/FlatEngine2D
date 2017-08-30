@@ -5,8 +5,12 @@ std::unordered_map<std::string, Entities> Entity::EntitiesGroupedByTags;
 Entity* Entity::Root;
 
 void Entity::CreateTags(const TagsList &tags) {
-	assert(Entity::Tags.empty());
-	Entity::Tags = tags;
+    if(!Entity::Tags.empty()) {
+        Logger::GetInstance().log(Logger::MessageType::Error, "Tags already exist. They can't be created");
+        return;
+    }
+
+    Entity::Tags = tags;
 }
 
 Entities& Entity::GetEntitiesByTag(const std::string &tag) {
@@ -16,20 +20,20 @@ Entities& Entity::GetEntitiesByTag(const std::string &tag) {
 
 Entity &Entity::GetRoot() {
 	if(Root == nullptr) {
-		std::cerr << "Root doesn't exist. Entity isn't created";
+		Logger::GetInstance().log(Logger::MessageType::Error, "There is no created entity. Root is nullptr");
 	}
-	else
-		return *Root;
+    return *Root;
 }
 
 Entity::Entity(const std::string &name, const std::string &tag, Entity *parent) {
 	if(parent == nullptr)
 		Root = this;
 
-	assert(Tags.count(tag));
+	setName(name);
 
-	this->name = name;
-	this->tag = tag;
+    auto ptr = std::shared_ptr<Entity>(this, [](Entity*){} ); //Allow to call setTag which use shared_from_this() from constructor
+    setTag(tag);
+
 	this->parent = parent;
 
     addComponent<Transform>();
@@ -47,18 +51,19 @@ void Entity::saveToFile(const std::string &filename) {
 void Entity::loadFromFile(const std::string &filename) {
     std::ifstream file("../game/scenes/" + filename);
 
-    if(file.is_open()) {
-        entities.clear();
-        components.clear();
-
-        json jsonData;
-        file >> jsonData;
-        file.close();
-
-        deserialize(jsonData);
+    if(!file.is_open()) {
+        Logger::GetInstance().log(Logger::MessageType::Error, "Entity \"" + filename + "\" couldn't be loaded");
+        return;
     }
-    else
-        std::cerr << "Scene " << filename << " couldn't be loaded";
+
+    entities.clear();
+    components.clear();
+
+    json jsonData;
+    file >> jsonData;
+    file.close();
+
+    deserialize(jsonData);
 }
 
 void Entity::serialize(json &jsonData) const {
@@ -151,21 +156,24 @@ bool Entity::hasEntity(const std::string &name) {
 }
 
 void Entity::addEntity(const std::string &name, const std::string& tag) {
-	assert(!hasEntity(name));
+	if(hasEntity(name)) {
+		Logger::GetInstance().log(Logger::MessageType::Error, "Entity \"" + name + "\" already exists. It can't be created");
+		return;
+	}
 
 	entities[name] = std::make_unique<Entity>(name, tag, this);
-	EntitiesGroupedByTags[tag].insert(entities[name]);
 }
 
 Entity &Entity::getEntity(const std::string &name) {
-	assert(hasEntity(name));
+    if(!hasEntity(name))
+        Logger::GetInstance().log(Logger::MessageType::Error, "Entity \"" + name + "\" doesn't exist. It can't be returned");
 
 	return *entities[name];
 }
 
 void Entity::setName(const std::string& name) {
     if (this->name != name) {
-        if (parent == nullptr)
+        if (parent == nullptr || this->name == "")
             this->name = name;
         else {
             std::string oldName = this->name;
@@ -186,13 +194,19 @@ std::string Entity::getTag() const {
 }
 
 void Entity::setTag(const std::string& tag) {
-	assert(Entity::Tags.count(tag));
+	if(!Tags.count(tag)) {
+        Logger::GetInstance().log(Logger::MessageType::Error,
+                                  "Entity \"" + name + '"' + " can't set non-created tag " + '"' + tag + '"');
+        return;
+    }
 
 	std::string oldTag = this->tag;
 	this->tag = tag;
 
 	Entity::EntitiesGroupedByTags[tag].insert(shared_from_this());
-	Entity::EntitiesGroupedByTags[oldTag].erase(shared_from_this());
+
+    if(oldTag != "")
+	    Entity::EntitiesGroupedByTags[oldTag].erase(shared_from_this());
 }
 
 Entity* Entity::getParent() {
