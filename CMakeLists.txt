@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(Platformer2D)
+project(FlatEngine2D)
 
 add_compile_options(-std=c++17)
 
