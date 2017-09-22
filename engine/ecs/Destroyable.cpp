@@ -1,19 +1,19 @@
 #include "Destroyable.hpp"
 
 void Destroyable::destroy(float timeToDelay) {
-	toBeDestroyed = true;
-	elapsedTime.restart();
-	this->timeToDelay = timeToDelay;
+    toBeDestroyed = true;
+    elapsedTime.restart();
+    this->timeToDelay = timeToDelay;
 }
 
 bool Destroyable::hasToBeDestroyed() const {
-	return toBeDestroyed;
+    return toBeDestroyed;
 }
 
 bool Destroyable::hasTimeToDelayElapsed() const {
-	return elapsedTime.getElapsedTime().asSeconds() >= timeToDelay;
+    return elapsedTime.getElapsedTime().asSeconds() >= timeToDelay;
 }
 
 bool Destroyable::isReadyToDestroy() const {
-	return hasToBeDestroyed() && hasTimeToDelayElapsed();
+    return hasToBeDestroyed() && hasTimeToDelayElapsed();
 }

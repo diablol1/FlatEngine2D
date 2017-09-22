@@ -14,15 +14,15 @@ public:
 
     Transform* clone() const override;
 
-    void serialize(json &jsonData) const override;
-    void deserialize(const json &jsonData) override;
+    void serialize(json& jsonData) const override;
+    void deserialize(const json& jsonData) override;
 
     void move(const sf::Vector2f& offset);
     void scale(const sf::Vector2f& factors);
     void rotate(float angle);
 
-    void setPosition(const sf::Vector2f &position);
-    void setScale(const sf::Vector2f &factors);
+    void setPosition(const sf::Vector2f& position);
+    void setScale(const sf::Vector2f& factors);
     void setRotation(float angle);
 
     const sf::Vector2f& getPosition() const;

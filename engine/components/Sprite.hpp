@@ -18,8 +18,8 @@ public:
 
     Sprite* clone() const override;
 
-    void serialize(json &jsonData) const override;
-    void deserialize(const json &jsonData) override;
+    void serialize(json& jsonData) const override;
+    void deserialize(const json& jsonData) override;
 
     void setTexture(std::string path);
     std::string getTexturePath() const;
@@ -29,7 +29,7 @@ private:
     sf::Sprite sprite;
     std::string texturePath;
 
-    void onMessage(const std::string &message, const std::any &value) override;
+    void onMessage(const std::string& message, const std::any& value) override;
 
     void draw(sf::RenderWindow& window);
 };

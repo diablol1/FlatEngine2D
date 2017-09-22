@@ -20,13 +20,13 @@ class Component : public Destroyable, public Serializable {
 public:
     bool enabled = true;
 
-	virtual Component* clone() const = 0;
+    virtual Component* clone() const = 0;
 protected:
     Entity* entity;
 
-	virtual void init() {}
-	virtual void update(float deltaTime) {}
-	virtual void processEvent(const sf::Event& event) {}
+    virtual void init() {}
+    virtual void update(float deltaTime) {}
+    virtual void processEvent(const sf::Event& event) {}
 
     virtual void onMessage(const std::string& message, const std::any& value) {}
 };
