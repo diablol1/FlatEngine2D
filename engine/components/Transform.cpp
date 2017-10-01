@@ -36,7 +36,10 @@ void Transform::update(float deltaTime) {
 
         if (toBeUpdated |= parentTransform->toBeUpdated) {
             globalTransform = parentTransform->globalTransform;
-            const_cast<sf::Transform&>(globalTransform.getTransform()).combine(localTransform.getTransform());
+
+            globalTransform.move(localTransform.getPosition());
+            globalTransform.rotate(localTransform.getRotation());
+            globalTransform.scale(localTransform.getScale());
 
             parentTransform->toBeUpdated = false;
             if (entity->getEntities().size() == 0) {
