@@ -18,9 +18,11 @@ class Entity;
 class Component : public Destroyable, public Serializable {
     friend class Entity;
 public:
-    bool enabled = true;
-
     virtual Component* clone() const = 0;
+
+    void setEnabled(bool flag);
+
+    bool isEnabled() const;
 protected:
     Entity* entity;
 
@@ -28,5 +30,10 @@ protected:
     virtual void update(float deltaTime) {}
     virtual void processEvent(const sf::Event& event) {}
 
+    virtual void onEnable() {}
+    virtual void onDisable() {}
+
     virtual void onMessage(const std::string& message, const std::any& value) {}
+private:
+    bool enabled = true;
 };

@@ -45,9 +45,11 @@ void Transform::update(float deltaTime) {
             if (entity->getEntities().size() == 0) {
                 toBeUpdated = false; //No more children to change transform, so set flag to false
             }
-
+            //TODO: Find out better solution for this. Transform shouldn't know too much about other components
             if (entity->hasComponent<Sprite>())
                 entity->sendMessage<Sprite>("transform changed", globalTransform);
+            if (entity->hasComponent<Camera>())
+                entity->sendMessage<Camera>("transform changed", globalTransform);
         }
     }
 }

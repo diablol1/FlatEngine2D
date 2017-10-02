@@ -87,7 +87,7 @@ void Entity::serialize(json& jsonData) const {
         std::string componentName = utility::getClassName(*c.second);
 
         c.second->serialize(jsonData["components"][componentName]);
-        jsonData["components"][componentName]["enabled"] = c.second->enabled;
+        jsonData["components"][componentName]["enabled"] = c.second->isEnabled();
     }
 
     for (const auto& e : entities) {
@@ -108,9 +108,9 @@ void Entity::deserialize(const json& jsonData) {
             std::shared_ptr < Component > component = ComponentsCreator::GetInstance().create(componentName);
 
             component->entity = this;
+            component->init();
             component->deserialize(componentFields);
-
-            component->enabled = componentFields["enabled"];
+            component->setEnabled(componentFields["enabled"]);
 
             components[utility::getClassHashCode(*component)] = component;
         }
@@ -137,7 +137,7 @@ void Entity::update(float deltaTime) {
     checkForDestroying();
 
     for (auto& c : components) {
-        if (c.second->enabled)
+        if (c.second->isEnabled())
             c.second->update(deltaTime);
     }
 

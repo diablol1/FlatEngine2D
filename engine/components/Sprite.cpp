@@ -15,9 +15,9 @@ void Sprite::deserialize(const json& jsonData) {
     setTexture(jsonData["texture"]);
 }
 
-void Entity::drawSprites(sf::RenderWindow& window) {
+void Entity::drawSprites(const std::shared_ptr<sf::RenderWindow>& window) {
     if (hasComponent<Sprite>()) {
-        if (getComponent<Sprite>().enabled)
+        if (getComponent<Sprite>().isEnabled())
             getComponent<Sprite>().draw(window);
     }
 
@@ -34,8 +34,8 @@ void Sprite::onMessage(const std::string& message, const std::any& value) {
     }
 }
 
-void Sprite::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
+void Sprite::draw(const std::shared_ptr<sf::RenderWindow>& window) {
+    window->draw(sprite);
 }
 
 void Sprite::setTexture(std::string path) {

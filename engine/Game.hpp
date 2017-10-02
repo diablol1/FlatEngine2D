@@ -6,15 +6,15 @@
 
 class Game {
 public:
-	Game(unsigned int width, unsigned int height, const std::string& title, sf::Uint32 style);
-	void run();
+    Game(unsigned int width, unsigned int height, const std::string& title, sf::Uint32 style);
+    void run();
 
-	std::shared_ptr<Entity> scene;
+    std::shared_ptr<Entity> scene;
 private:
-	void detectAndPassEvent();
+    void detectAndPassEvent();
     void draw();
 
-	const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
+    const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
-	sf::RenderWindow window;
+    std::shared_ptr<sf::RenderWindow> window;
 };

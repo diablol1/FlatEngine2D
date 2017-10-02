@@ -36,7 +36,7 @@ public:
 
     void passEvent(const sf::Event& event);
     void update(float deltaTime);
-    void drawSprites(sf::RenderWindow& window);
+    void drawSprites(const std::shared_ptr<sf::RenderWindow>& window);
 
     template<typename ComponentType>
     bool hasComponent() const {
@@ -61,6 +61,7 @@ public:
         components[utility::getClassHashCode<ComponentType>()] = std::make_shared<ComponentType>(args...);
         getComponent<ComponentType>().entity = this;
         getComponent<ComponentType>().init();
+        getComponent<ComponentType>().setEnabled(true);
     }
 
     template<typename ComponentType>

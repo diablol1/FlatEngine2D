@@ -31,5 +31,5 @@ private:
 
     void onMessage(const std::string& message, const std::any& value) override;
 
-    void draw(sf::RenderWindow& window);
+    void draw(const std::shared_ptr<sf::RenderWindow>& window);
 };

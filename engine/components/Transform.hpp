@@ -2,6 +2,7 @@
 
 #include "ecs/Entity.hpp"
 #include "ecs/Component.hpp"
+#include "components/Camera.hpp"
 
 class Transform : public Component {
 public:
