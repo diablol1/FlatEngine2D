@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "ecs/ComponentsCreator.h"
+#include "ecs/ComponentsCreator.hpp"
 #include "ecs/Component.hpp"
 #include "components/Transform.hpp"
 

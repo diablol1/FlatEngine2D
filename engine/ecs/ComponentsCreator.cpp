@@ -1,4 +1,4 @@
-#include "ComponentsCreator.h"
+#include "ComponentsCreator.hpp"
 
 ComponentsCreator& ComponentsCreator::GetInstance() {
     static ComponentsCreator instance;
