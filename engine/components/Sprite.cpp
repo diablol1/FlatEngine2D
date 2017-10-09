@@ -52,6 +52,10 @@ void Sprite::setTexture(std::string path) {
     }
 }
 
+void Sprite::setTextureRect(const sf::IntRect& rect) {
+    sprite.setTextureRect(rect);
+}
+
 std::string Sprite::getTexturePath() const {
     return texturePath;
 }

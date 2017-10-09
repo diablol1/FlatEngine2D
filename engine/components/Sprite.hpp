@@ -22,9 +22,9 @@ public:
     void deserialize(const json& jsonData) override;
 
     void setTexture(std::string path);
+    void setTextureRect(const sf::IntRect& rect);
     std::string getTexturePath() const;
 private:
-
     static std::unordered_map<std::string, sf::Texture> Textures;
     sf::Sprite sprite;
     std::string texturePath;
