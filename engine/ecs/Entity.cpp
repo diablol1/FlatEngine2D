@@ -147,6 +147,18 @@ void Entity::update(float deltaTime) {
     }
 }
 
+void Entity::drawSprites(const std::shared_ptr<sf::RenderWindow>& window) {
+    if (hasComponent<Sprite>()) {
+        if (getComponent<Sprite>().isEnabled())
+            getComponent<Sprite>().draw(window);
+    }
+
+    for (auto& e : entities) {
+        if (e.second->active)
+            e.second->drawSprites(window);
+    }
+}
+
 void Entity::checkForDestroying() {
     for (auto it = entities.begin(); it != entities.end();) {
         if (it->second->isReadyToDestroy())

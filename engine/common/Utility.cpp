@@ -1,4 +1,4 @@
-#include "utility.hpp"
+#include "Utility.hpp"
 
 namespace utility {
     std::string removeDigitsBefore(std::string s) {

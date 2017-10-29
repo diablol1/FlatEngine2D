@@ -2,8 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
-#include <cassert>
 #include <unordered_map>
 #include <memory>
 #include <unordered_set>
@@ -11,7 +9,7 @@
 #include <fstream>
 
 #include "common/Logger.hpp"
-#include "common/utility.hpp"
+#include "common/Utility.hpp"
 #include "components/Sprite.hpp"
 #include "components/Transform.hpp"
 #include "ecs/Destroyable.hpp"

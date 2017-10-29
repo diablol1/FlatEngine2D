@@ -15,6 +15,7 @@ public:
     } _componentsCreatorAdder;
 
     Component* clone() const override;
+
     void serialize(json& jsonData) const override;
     void deserialize(const json& jsonData) override;
 

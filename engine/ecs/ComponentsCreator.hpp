@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "common/utility.hpp"
+#include "common/Utility.hpp"
 #include "ecs/Component.hpp"
 
 class ComponentsCreator {
@@ -21,5 +21,5 @@ public:
 private:
     std::unordered_map<std::string, std::shared_ptr<Component>> components;
 
-    ComponentsCreator() {}
+    ComponentsCreator() = default;
 };

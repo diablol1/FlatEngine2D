@@ -15,18 +15,6 @@ void Sprite::deserialize(const json& jsonData) {
     setTexture(jsonData["texture"]);
 }
 
-void Entity::drawSprites(const std::shared_ptr<sf::RenderWindow>& window) {
-    if (hasComponent<Sprite>()) {
-        if (getComponent<Sprite>().isEnabled())
-            getComponent<Sprite>().draw(window);
-    }
-
-    for (auto& e : entities) {
-        if (e.second->active)
-            e.second->drawSprites(window);
-    }
-}
-
 void Sprite::onMessage(const std::string& message, const std::any& value) {
     if (message == "transform changed") {
         const sf::Transform& tmp = std::any_cast<sf::Transformable>(value).getTransform();

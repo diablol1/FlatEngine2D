@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "common/Logger.hpp"
 #include "ecs/ComponentsCreator.hpp"
 #include "ecs/Component.hpp"
 #include "components/Transform.hpp"

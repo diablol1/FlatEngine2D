@@ -1,4 +1,3 @@
-#include <common/Logger.hpp>
 #include "Camera.hpp"
 
 Camera::_addToComponentsCreator Camera::_componentsCreatorAdder;
