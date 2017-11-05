@@ -16,6 +16,26 @@ Vector2 Vector2::operator/(float factor) const {
     return Vector2(x / factor, y / factor);
 }
 
+void Vector2::operator+=(const Vector2& v) {
+    x += v.x;
+    y += v.y;
+}
+
+void Vector2::operator-=(const Vector2& v) {
+    x -= v.x;
+    y -= v.y;
+}
+
+void Vector2::operator*=(float factor) {
+    x *= factor;
+    y *= factor;
+}
+
+void Vector2::operator/=(float factor) {
+    x /= factor;
+    y /= factor;
+}
+
 bool Vector2::operator==(const Vector2& v) const {
     return x == v.x && y == v.y;
 }

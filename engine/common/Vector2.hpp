@@ -20,12 +20,14 @@ public:
     }
 
     Vector2 operator+(const Vector2& v) const;
-
     Vector2 operator-(const Vector2& v) const;
-
     Vector2 operator*(float factor) const;
-
     Vector2 operator/(float factor) const;
+
+    void operator+=(const Vector2& v);
+    void operator-=(const Vector2& v);
+    void operator*=(float factor);
+    void operator/=(float factor);
 
     bool operator==(const Vector2& v) const;
     bool operator!=(const Vector2& v) const;
