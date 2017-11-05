@@ -17,10 +17,10 @@ void Transform::serialize(json& jsonData) const {
 }
 
 void Transform::deserialize(const json& jsonData) {
-    setPosition(sf::Vector2f(jsonData["position"]["x"],
+    setPosition(Vector2(jsonData["position"]["x"],
                              jsonData["position"]["y"]));
 
-    setScale(sf::Vector2f(jsonData["scale"]["x"],
+    setScale(Vector2(jsonData["scale"]["x"],
                           jsonData["scale"]["y"]));
 
     setRotation(jsonData["rotation"]);
@@ -54,13 +54,13 @@ void Transform::update(float deltaTime) {
     }
 }
 
-void Transform::move(const sf::Vector2f& offset) {
-    localTransform.move(offset);
+void Transform::move(const Vector2& offset) {
+    localTransform.move(offset.getSfmlVector());
     toBeUpdated = true;
 }
 
-void Transform::scale(const sf::Vector2f& factors) {
-    localTransform.scale(factors);
+void Transform::scale(const Vector2& factors) {
+    localTransform.scale(factors.getSfmlVector());
     toBeUpdated = true;
 }
 
@@ -69,13 +69,13 @@ void Transform::rotate(float angle) {
     toBeUpdated = true;
 }
 
-void Transform::setPosition(const sf::Vector2f& position) {
-    localTransform.setPosition(position);
+void Transform::setPosition(const Vector2& position) {
+    localTransform.setPosition(position.getSfmlVector());
     toBeUpdated = true;
 }
 
-void Transform::setScale(const sf::Vector2f& factors) {
-    localTransform.setScale(factors);
+void Transform::setScale(const Vector2& factors) {
+    localTransform.setScale(factors.getSfmlVector());
     toBeUpdated = true;
 }
 
@@ -84,11 +84,11 @@ void Transform::setRotation(float angle) {
     toBeUpdated = true;
 }
 
-const sf::Vector2f& Transform::getPosition() const {
+Vector2 Transform::getPosition() const {
     return localTransform.getPosition();
 }
 
-const sf::Vector2f& Transform::getScale() const {
+Vector2 Transform::getScale() const {
     return localTransform.getScale();
 }
 
@@ -96,11 +96,11 @@ float Transform::getRotation() const {
     return localTransform.getRotation();
 }
 
-const sf::Vector2f& Transform::getGlobalPosition() const {
+Vector2 Transform::getGlobalPosition() const {
     return globalTransform.getPosition();
 }
 
-const sf::Vector2f& Transform::getGlobalScale() const {
+Vector2 Transform::getGlobalScale() const {
     return globalTransform.getScale();
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/Vector2.hpp"
 #include "ecs/Entity.hpp"
 #include "ecs/Component.hpp"
 #include "components/Camera.hpp"
@@ -18,20 +19,20 @@ public:
     void serialize(json& jsonData) const override;
     void deserialize(const json& jsonData) override;
 
-    void move(const sf::Vector2f& offset);
-    void scale(const sf::Vector2f& factors);
+    void move(const Vector2& offset);
+    void scale(const Vector2& factors);
     void rotate(float angle);
 
-    void setPosition(const sf::Vector2f& position);
-    void setScale(const sf::Vector2f& factors);
+    void setPosition(const Vector2& position);
+    void setScale(const Vector2& factors);
     void setRotation(float angle);
 
-    const sf::Vector2f& getPosition() const;
-    const sf::Vector2f& getScale() const;
+    Vector2 getPosition() const;
+    Vector2 getScale() const;
     float getRotation() const;
 
-    const sf::Vector2f& getGlobalPosition() const;
-    const sf::Vector2f& getGlobalScale() const;
+    Vector2 getGlobalPosition() const;
+    Vector2 getGlobalScale() const;
     float getGlobalRotation() const;
 
 private:
