@@ -1,4 +1,4 @@
-#pragma once
+    #pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -25,7 +25,7 @@ public:
     void serialize(json& jsonData) const override;
     void deserialize(const json& jsonData) override;
 
-    void onMessage(const std::string& message, const std::any& value) override;
+    void onMessage(const std::string& message, const std::experimental::any& value) override;
 
     void zoom(float factor);
 private:

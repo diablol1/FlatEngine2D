@@ -223,7 +223,7 @@ void Entity::setTag(const std::string& tag) {
     if (!Tags.count(tag)) {
         Logger::GetInstance().log(Logger::MessageType::Error,
                                   "Entity \"" + name + '"' + " can't set non-created tag " + '"' + tag + '"');
-        return;
+        return; 
     }
 
     std::string oldTag = this->tag;

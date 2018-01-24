@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
 #include <fstream>
 #include "lib/json.hpp"
 

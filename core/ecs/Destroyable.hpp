@@ -4,7 +4,7 @@
 
 class Destroyable {
 public:
-    virtual void destroy(float timeToDelay = 0.0f);
+    void destroy(float timeToDelay = 0.0f);
     bool isReadyToDestroy() const;
 private:
     bool toBeDestroyed = false;

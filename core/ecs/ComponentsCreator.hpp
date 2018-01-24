@@ -11,7 +11,7 @@ public:
 
     template<typename ComponentType>
     void add() {
-        static_assert(std::is_base_of<Component, ComponentType>::value);
+        static_assert(std::is_base_of<Component, ComponentType>::value, "Test");
 
         components[utility::getClassName<ComponentType>()] = std::make_shared<ComponentType>(ComponentType());
     }
