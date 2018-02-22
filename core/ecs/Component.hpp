@@ -11,7 +11,7 @@ class Entity;
 
 /*NOTE:
  * Component which uses another component has to be added as the second one
- * E.g. Adding Collider after Position, because Collider needs Position
+ * E.g. Adding Collider after Transform, because Collider needs Transform
  * Scripts should be added after normal components
 */
 
@@ -27,7 +27,6 @@ protected:
 
     virtual void init() {}
     virtual void update(float deltaTime) {}
-    virtual void processEvent(const sf::Event& event) {}
 
     virtual void onEnable() {}
     virtual void onDisable() {}

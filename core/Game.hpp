@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ecs/Entity.hpp"
+#include "common/Input.hpp"
 
 class Game {
 public:
@@ -13,6 +14,6 @@ private:
 
     std::shared_ptr<sf::RenderWindow> window;
 
-    void detectAndPassEvent();
+    void pollEvent();
     void draw();
 };

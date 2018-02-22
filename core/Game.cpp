@@ -2,6 +2,7 @@
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title, sf::Uint32 style) {
     window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title, style);
+    window->setKeyRepeatEnabled(false);
     Camera::window = window;
 
     Entity::LoadTagsFromFile("../game/tags.txt");
@@ -13,25 +14,25 @@ void Game::run() {
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
     while (window->isOpen()) {
-        detectAndPassEvent();
         timeSinceLastUpdate += clock.restart();
 
         while (timeSinceLastUpdate > TIME_PER_FRAME) {
             timeSinceLastUpdate -= TIME_PER_FRAME;
-            detectAndPassEvent();
+            pollEvent();
             scene->update(TIME_PER_FRAME.asSeconds());
+            Input::GetInstance().resetActions();
         }
         draw();
     }
 }
 
-void Game::detectAndPassEvent() {
+void Game::pollEvent() {
     sf::Event event;
     while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window->close();
 
-        scene->passEvent(event);
+        Input::GetInstance().registerEvent(event);
     }
 }
 

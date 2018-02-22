@@ -32,7 +32,6 @@ public:
 
     void serialize(json& jsonData) const override;
 
-    void passEvent(const sf::Event& event);
     void update(float deltaTime);
     void drawSprites(const std::shared_ptr<sf::RenderWindow>& window);
 

@@ -124,15 +124,6 @@ void Entity::deserialize(const json& jsonData) {
     }
 }
 
-void Entity::passEvent(const sf::Event& event) {
-    for (auto& e : entities) {
-        e.second->passEvent(event);
-    }
-    for (auto& c : components) {
-        c.second->processEvent(event);
-    }
-}
-
 void Entity::update(float deltaTime) {
     checkForDestroying();
 
